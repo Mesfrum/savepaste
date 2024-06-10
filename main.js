@@ -3,11 +3,7 @@ import "./style.css";
 const previewEle = document.getElementById("preview");
 const messageEle = document.getElementById("message");
 const clearBtn = document.getElementById("clearBtn");
-const sidebarBtn = document.querySelector(".sidebar-toggle");
-const sidebar = document.getElementById("sidebar");
-const sidebarOverlay = document.getElementById("overlay");
 
-// Initialize the download count in session storage if it doesn't exist
 if (!sessionStorage.getItem("downloadCount")) {
   sessionStorage.setItem("downloadCount", 0);
 }
@@ -21,7 +17,7 @@ function handlePaste(evt) {
   );
 
   if (items.length === 0) {
-    messageEle.textContent = "Paste an image";
+    messageEle.textContent = "Paste a image";
     messageEle.classList.remove("hidden");
     return;
   }
@@ -37,7 +33,7 @@ function handlePaste(evt) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `svepste_${downloadCount}.png`; // Append the download count to the file name
+  a.download = `svepste_${downloadCount}.png`;
   document.body.appendChild(a);
   a.click();
   window.URL.revokeObjectURL(url);
@@ -53,46 +49,22 @@ function clearImage() {
   clearBtn.removeEventListener("click", clearImage);
 }
 
-// function toggleSidebar() {
-//   if (sidebar.classList.contains("open")) {
-//     sidebar.classList.remove("open");
-//   } else {
-//     sidebar.classList.add("open");
-//   }
+document.addEventListener("paste", handlePaste);
 
-//   if (sidebarOverlay.classList.contains("hidden")) {
-//     sidebarOverlay.classList.remove("hidden");
-//   } else {
-//     sidebarOverlay.classList.add("hidden");
-//   }
+const toggleSidebarBtn = document.getElementById("toggleSidebar");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 
-//   if (sidebarBtn.classList.contains("open")) {
-//     sidebarBtn.classList.remove("open");
-//   } else {
-//     sidebarBtn.classList.add("open");
-//   }
-// }
-
-// document.addEventListener("paste", handlePaste);
-// sidebarBtn.addEventListener("click", toggleSidebar);
-// sidebarOverlay.addEventListener("click", toggleSidebar);
-
-sidebarBtn.addEventListener("click", function () {
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
-  if (sidebar.classList.contains("translate-x-full")) {
-    sidebar.classList.remove("translate-x-full");
-    overlay.classList.remove("hidden");
-    overlay.classList.add("block");
-  } else {
-    sidebar.classList.add("translate-x-full");
-    overlay.classList.add("hidden");
-    overlay.classList.remove("block");
-  }
+toggleSidebarBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+  overlay.classList.toggle("open");
+  document.getElementById("sidebar-toggle-icon").classList.toggle("open");
 });
 
-sidebarOverlay.addEventListener("click", function () {
-  document.getElementById("sidebar").classList.add("translate-x-full");
-  document.getElementById("overlay").classList.add("hidden");
-  document.getElementById("overlay").classList.remove("block");
+overlay.addEventListener("click", () => {
+  sidebar.classList.add("closing");
+  overlay.classList.remove("open");
+  setTimeout(() => {
+    sidebar.classList.remove("open", "closing");
+  }, 300);
 });

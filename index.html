@@ -3,29 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SavePaste - A simple and secure image hosting platform that allows you to paste, view, and download images without storing them on the server."
+    />
+    <meta
+      name="keywords"
+      content="image hosting, image sharing, paste image, download image, free image hosting"
+    />
+    <meta name="author" content="mesfrum" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta
+      property="og:title"
+      content="SavePaste - Paste, View, and Download Images"
+    />
+    <meta
+      property="og:description"
+      content="A simple and secure image that allows you to paste, view, and download images without storing them on any server."
+    />
+    <meta property="og:image" content="https://example.com/og-image.png" />
+    <meta property="og:url" content="https://savepaste.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="SavePaste - Paste, View, and Download Images"
+    />
+    <meta
+      name="twitter:description"
+      content="A simple and secure image hosting platform that allows you to paste, view, and download images without storing them on the server."
+    />
+    <meta
+      name="twitter:image"
+      content="https://example.com/twitter-image.png"
+    />
     <link rel="icon" type="image/svg+xml" href="favico.svg" />
     <title>savepaste</title>
     <script type="module" src="main.js" defer></script>
-    <style>
-      .sidebar {
-        transition: transform 0.3s ease;
-      }
-      .overlay {
-        transition: opacity 0.3s ease;
-      }
-    </style>
   </head>
   <body
-    class="relative flex items-center justify-center min-h-screen bg-slate-200"
+    class="relative flex items-center justify-center min-h-screen bg-slate-200 flex-col justify-around"
   >
-    <div class="absolute bottom-3 left-4 pl-2">
+    <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-[999999]">
       <a
         href="/"
-        class="text-3xl font-bold flex gap-2 item-center tracking-widest text-gray-400 hover:underline hover:text-gray-500"
+        class="text-3xl font-bold flex gap-2 item-center tracking-wider text-gray-400 hover:underline hover:text-gray-500"
       >
-        <!-- <img src="favico.svg" width="35rem" height="auto" alt="logo" /> -->
-        savepaste</a
-      >
+        savepaste
+      </a>
     </div>
     <div class="p-4">
       <div class="flex items-center justify-center mb-4 space-x-1">
@@ -53,27 +78,32 @@
         </div>
         <div
           id="message"
-          class="bg-red-100 border border-red-300 rounded text-red-700 px-3 py-2 text-center mt-4 w-fit mx-auto hidden"
+          class="bg-red-100 border border-red-300 rounded text-red-700 px-3 py-2 text-center mt-4 w-fit mx-auto hidden italics"
         ></div>
       </div>
     </div>
+
+    <!-- absolutes -->
     <button
-      class="absolute top-4 right-4 border border-gray-600 hover:border-gray-800 rounded-full h-8 w-8 flex items-center justify-center bg-white text-gray-600 hover:text-gray-800 focus:outline-none transition-all duration-200 sidebar-toggle z-[99999]"
+      id="toggleSidebar"
+      class="absolute top-4 right-4 border border-gray-600 hover:border-gray-800 rounded-full h-8 w-8 flex items-center justify-center bg-white text-gray-600 hover:text-gray-800 focus:outline-none transition-all duration-200 z-[99999]"
     >
       <span
+        id="sidebar-toggle-icon"
         class="font-bold max-h-max -mt-0.5 -ml-[1px] transition-all duration-300 transform sidebar-toggle-icon"
         >i</span
       >
     </button>
-    <div
+    <!-- <div
       id="sidebar"
-      class="sidebar fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform translate-x-full z-50"
+      class="fixed top-0 right-0 h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-white translate-x-full transition-transform ease-in-out duration-200 z-[999] invisible pt-14 md:pt-0"
     >
       <div class="h-full overflow-x-auto p-4">
         <h2 class="text-xl font-bold mb-4">How to Use</h2>
         <p class="mb-4">
-          This site allows you to paste an image, which will be displayed on the
-          screen. After pasting, you can also download the image.
+          <a href="/"><span class="italic">Savepaste</span></a> allows you to
+          paste an image, which will be displayed on the screen. After pasting,
+          you can also download the image.
         </p>
         <h2 class="text-xl font-bold mb-4">Disclaimers</h2>
         <ul class="list-disc pl-4 mb-4">
@@ -84,10 +114,62 @@
           </li>
         </ul>
       </div>
+    </div> -->
+    <div
+      id="sidebar"
+      class="fixed top-0 right-0 h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-white translate-x-full transition-transform ease-in-out duration-200 z-[999] invisible pt-14 md:pt-0"
+    >
+      <div class="h-full overflow-x-auto p-4">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">About</h2>
+        <p class="mb-4 text-gray-600">
+          <a href="/" class="text-blue-500 underline hover:text-blue-700"
+            ><span class="italic">Savepaste</span></a
+          >
+          is a simple and secure image hosting platform that allows you to
+          paste, view, and download images without storing them on the server.
+        </p>
+        <h2 class="text-xl font-bold mb-4 text-gray-800">How to Use</h2>
+        <p class="mb-4 text-gray-600">
+          <span class="italic">Savepaste</span> allows you to paste an image,
+          which will be displayed on the screen. After pasting, you can also
+          download the image.
+        </p>
+        <h2 class="text-xl font-bold mb-4 text-gray-800">FAQs</h2>
+        <ul class="list-disc pl-4 mb-4 text-gray-600">
+          <li class="mb-2">
+            <strong class="text-gray-800"
+              >What image formats are supported?</strong
+            >
+            PNG, JPEG, and GIF.
+          </li>
+          <li class="mb-2">
+            <strong class="text-gray-800"
+              >Are images stored on the server?</strong
+            >
+            No, images are only available during the current session.
+          </li>
+          <li class="mb-2">
+            <strong class="text-gray-800"
+              >Can I download the pasted images?</strong
+            >
+            Yes, you can download the images directly from the browser.
+          </li>
+        </ul>
+        <h2 class="text-xl font-bold mb-4 text-gray-800">Contact</h2>
+        <p class="pb-8 text-gray-600">
+          For any questions or support, please contact us at
+          <a
+            href="mailto:support@savepaste.com"
+            class="text-blue-500 underline hover:text-blue-700"
+            >support@savepaste.com</a
+          >.
+        </p>
+      </div>
     </div>
+
     <div
       id="overlay"
-      class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"
+      class="fixed top-0 left-0 w-full h-full bg-white/20 opacity-0 pointer-events-none transition-opacity ease-in-out duration-300 invisible"
     ></div>
   </body>
 </html>

@@ -19,23 +19,27 @@
   max-height: calc(80vh - 4rem);
 }
 
-.open {
-  transform: translateX(0);
-}
-
-.sidebar-toggle-icon {
+#sidebar-toggle-icon {
   transform: rotate(0deg);
 }
 
-.open .sidebar-toggle-icon {
+#sidebar-toggle-icon.open {
   transform: rotate(180deg);
   margin-top: 2px;
 }
 
 #sidebar.open {
-  display: block;
+  transform: translateX(0);
+  visibility: visible;
 }
 
-#sidebar {
-  display: none;
+#sidebar.closing {
+  transform: translateX(100%);
+  visibility: hidden;
+}
+
+#overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
