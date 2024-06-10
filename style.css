@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .corner-gradient {
+    background: linear-gradient(
+      to bottom left,
+      rgb(148 163 184 / 0.5) 0%,
+      rgb(148 163 184 / 0.3) 25%,
+      rgb(148 163 184 / 0.1) 50%,
+      rgb(148 163 184 / 0) 75%
+    );
+  }
+}
+
+.fit-screen {
+  max-width: calc(80vw - 4rem);
+  max-height: calc(80vh - 4rem);
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.sidebar-toggle-icon {
+  transform: rotate(0deg);
+}
+
+.open .sidebar-toggle-icon {
+  transform: rotate(180deg);
+  margin-top: 2px;
+}
+
+#sidebar.open {
+  display: block;
+}
+
+#sidebar {
+  display: none;
+}
