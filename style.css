@@ -43,3 +43,8 @@
   pointer-events: auto;
   visibility: visible;
 }
+
+html {
+  visibility: visible;
+  opacity: 1;
+}

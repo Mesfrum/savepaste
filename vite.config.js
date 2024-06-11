@@ -4,19 +4,19 @@ import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
-import { visualizer } from "rollup-plugin-visualizer";
+import { resolve } from "path";
+import compression from "vite-plugin-compression";
 
 export default defineConfig({
   plugins: [
     createHtmlPlugin({
       minify: true,
     }),
-    ViteMinifyPlugin({}),
-    visualizer({
-      filename: "./dist/stats.html",
-      template: "treemap",
-      sourcemap: true,
+    compression({
+      algorithm: "brotliCompress",
+      deleteOriginalAssets: false, // Keep the original assets
     }),
+    ViteMinifyPlugin({}),
   ],
   css: {
     postcss: {
@@ -38,6 +38,10 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+      },
+      external: [resolve(__dirname, "temp/**")],
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {

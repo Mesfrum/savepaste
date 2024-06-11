@@ -3,37 +3,35 @@ import "./style.css";
 const previewEle = document.getElementById("preview");
 const messageEle = document.getElementById("message");
 const clearBtn = document.getElementById("clearBtn");
+const toggleSidebarBtn = document.getElementById("toggleSidebar");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const sidebarToggleIcon = document.getElementById("sidebar-toggle-icon");
 
-if (!sessionStorage.getItem("downloadCount")) {
-  sessionStorage.setItem("downloadCount", 0);
-}
+let downloadCount = parseInt(
+  sessionStorage.getItem("downloadCount") || "0",
+  10
+);
 
 function handlePaste(evt) {
-  messageEle.textContent = "";
-  messageEle.classList.add("hidden");
-
   const items = [...evt.clipboardData.items].filter((item) =>
     /^image\/(png|jpeg|gif)/.test(item.type)
   );
-
   if (items.length === 0) {
-    messageEle.textContent = "Paste a image";
+    messageEle.textContent = "Paste an image";
     messageEle.classList.remove("hidden");
     return;
   }
 
-  const item = items[0];
-  const blob = item.getAsFile();
+  const blob = items[0].getAsFile();
   previewEle.src = URL.createObjectURL(blob);
-
-  // Increment the download count
-  let downloadCount = parseInt(sessionStorage.getItem("downloadCount"), 10) + 1;
+  downloadCount++;
   sessionStorage.setItem("downloadCount", downloadCount);
 
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `svepste_${downloadCount}.png`;
+  a.download = `paste-${downloadCount}.png`;
   document.body.appendChild(a);
   a.click();
   window.URL.revokeObjectURL(url);
@@ -41,6 +39,8 @@ function handlePaste(evt) {
 
   clearBtn.classList.remove("hidden");
   clearBtn.addEventListener("click", clearImage, { once: true });
+  messageEle.textContent = "";
+  messageEle.classList.add("hidden");
 }
 
 function clearImage() {
@@ -51,20 +51,14 @@ function clearImage() {
 
 document.addEventListener("paste", handlePaste);
 
-const toggleSidebarBtn = document.getElementById("toggleSidebar");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-
-toggleSidebarBtn.addEventListener("click", () => {
+const toggleSidebar = () => {
   sidebar.classList.toggle("open");
   overlay.classList.toggle("open");
-  document.getElementById("sidebar-toggle-icon").classList.toggle("open");
-});
+  sidebarToggleIcon.classList.toggle("open");
+};
 
+toggleSidebarBtn.addEventListener("click", toggleSidebar);
 overlay.addEventListener("click", () => {
   sidebar.classList.add("closing");
   overlay.classList.remove("open");
-  setTimeout(() => {
-    sidebar.classList.remove("open", "closing");
-  }, 300);
 });
