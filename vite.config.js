@@ -8,7 +8,7 @@ import { resolve } from "path";
 import compression from "vite-plugin-compression";
 
 export default defineConfig({
-  base: '/savepaste.com/', 
+  base: '/', 
   plugins: [
     createHtmlPlugin({
       minify: true,
