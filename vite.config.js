@@ -35,7 +35,7 @@ exports.default = (0, vite_1.defineConfig)({
         },
     },
     build: {
-        minify: "terser",
+        minify: "terser", // Can also be 'esbuild' for faster builds, but 'terser' offers more comprehensive minification
         terserOptions: {
             compress: {
                 drop_console: true,
