@@ -3,16 +3,22 @@ import "./style.css";
 const previewEle = document.getElementById("preview") as HTMLImageElement;
 const messageEle = document.getElementById("message") as HTMLParagraphElement;
 const clearBtn = document.getElementById("clearBtn") as HTMLButtonElement;
-const toggleSidebarBtn = document.getElementById("toggleSidebar") as HTMLButtonElement;
+const toggleSidebarBtn = document.getElementById(
+  "toggleSidebar"
+) as HTMLButtonElement;
 const sidebar = document.getElementById("sidebar") as HTMLDivElement;
 const overlay = document.getElementById("overlay") as HTMLDivElement;
-const sidebarToggleIcon = document.getElementById("sidebar-toggle-icon") as HTMLSpanElement;
+const sidebarToggleIcon = document.getElementById(
+  "sidebar-toggle-icon"
+) as HTMLSpanElement;
 
-let downloadCount = parseInt(
-  sessionStorage.getItem("downloadCount") ?? "0", 10);
+let downloadCount: number = parseInt(
+  sessionStorage.getItem("downloadCount") ?? "0",
+  10
+);
 
 // Function to check if the user is on a mobile device
-function isMobileDevice() {
+function isMobileDevice(): boolean {
   return window.innerWidth < 630;
 }
 
@@ -28,9 +34,11 @@ if (isMobileDevice()) {
 }
 
 function handlePaste(evt: ClipboardEvent) {
-  const items = evt.clipboardData?.items ? [...evt.clipboardData.items].filter((item) =>
-    /^image\/(png|jpeg|gif)/.test(item.type)
-  ) : [];
+  const items = evt.clipboardData?.items
+    ? [...evt.clipboardData.items].filter((item: DataTransferItem) =>
+        /^image\/(png|jpeg|gif)/.test(item.type)
+      )
+    : [];
 
   if (items.length === 0) {
     messageEle.textContent = "Paste an image";
