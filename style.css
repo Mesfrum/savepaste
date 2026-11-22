@@ -16,7 +16,7 @@
 
 .fit-screen {
   max-width: calc(80vw - 4rem);
-  max-height: calc(80vh - 4rem);
+  max-height: calc(100vh - 16rem);
 }
 
 #sidebar kbd {

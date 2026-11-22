@@ -1,7 +1,6 @@
 import "./style.css";
 
 const previewEle = document.getElementById("preview") as HTMLImageElement;
-const messageEle = document.getElementById("message") as HTMLParagraphElement;
 const infoEle = document.getElementById("info") as HTMLParagraphElement;
 const toastEle = document.getElementById("toast") as HTMLDivElement;
 const galleryEle = document.getElementById("gallery") as HTMLDivElement;
@@ -99,16 +98,6 @@ function toast(text: string) {
   );
 }
 
-function showError(text: string) {
-  messageEle.textContent = text;
-  messageEle.classList.remove("hidden");
-}
-
-function hideError() {
-  messageEle.textContent = "";
-  messageEle.classList.add("hidden");
-}
-
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -163,7 +152,6 @@ async function addImage(blob: Blob) {
   const name = makeName(blob.type);
   const paste: Paste = { blob, url: URL.createObjectURL(blob), name };
   pastes.push(paste);
-  hideError();
   show(paste);
   download(blob, name);
   const copied = await copyLocation(name);
@@ -185,7 +173,12 @@ function handlePaste(evt: ClipboardEvent) {
   );
 
   if (!file) {
-    showError("Paste an image");
+    const text = evt.clipboardData?.getData("text/plain") ?? "";
+    toast(
+      pastes.some((p) => text.endsWith(p.name))
+        ? "Clipboard has the saved file's name, not an image. Copy an image first."
+        : "No image in clipboard"
+    );
     return;
   }
   evt.preventDefault();
@@ -304,7 +297,7 @@ document.addEventListener("drop", (evt) => {
   evt.preventDefault();
   const file = imageFrom(evt.dataTransfer?.files ?? []);
   if (file) addImage(file);
-  else showError("Drop an image");
+  else toast("Drop an image file");
 });
 
 fileInput.addEventListener("change", () => {

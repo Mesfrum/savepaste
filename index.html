@@ -61,7 +61,7 @@
     <script type="module" src="main.ts" defer></script>
   </head>
   <body
-    class="relative flex min-h-screen bg-slate-200 flex-col justify-around items-center justify-center"
+    class="relative flex min-h-screen bg-slate-200 flex-col items-center"
   >
     <!-- <div class="absolute top-4 left-1/2 -translate-x-1/2 z-[999999]">
       <a
@@ -71,7 +71,7 @@
         >savepaste</a
       >
     </div> -->
-    <nav class="absolute top-4 left-1/2 -translate-x-1/2 z-[999999] flex gap-4">
+    <nav class="mt-4 flex gap-4">
       <a
         href="/"
         class="text-3xl font-bold flex gap-2 item-center tracking-wider text-gray-400 hover:underline hover:text-gray-500"
@@ -87,7 +87,7 @@
       >
       <!-- /feature:text -->
     </nav>
-    <div class="p-4">
+    <div class="flex-1 flex flex-col justify-center p-4">
       <div class="flex mb-4 space-x-1 items-center justify-center">
         <kbd class="bg-gray-100 border border-gray-400 rounded px-1">Ctrl</kbd>
         <span>+</span>
@@ -124,10 +124,6 @@
         </div>
         <p id="info" class="mt-2 text-sm text-gray-600 hidden"></p>
         <div id="gallery" class="mt-3 flex flex-wrap gap-2 justify-center hidden"></div>
-        <div
-          id="message"
-          class="bg-red-100 border border-red-300 rounded text-red-700 px-3 py-2 text-center mt-4 w-fit mx-auto hidden italics"
-        ></div>
       </div>
     </div>
     <button
