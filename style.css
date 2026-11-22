@@ -19,6 +19,10 @@
   max-height: calc(80vh - 4rem);
 }
 
+#sidebar kbd {
+  @apply bg-gray-100 border border-gray-400 rounded px-1 text-sm text-gray-800;
+}
+
 #sidebar-toggle-icon {
   transform: rotate(0deg);
 }
