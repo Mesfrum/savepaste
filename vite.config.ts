@@ -8,14 +8,14 @@ import { resolve } from "path";
 import compression from "vite-plugin-compression";
 
 export default defineConfig({
-  base: '/', 
+  base: "/",
   plugins: [
     createHtmlPlugin({
       minify: true,
     }),
     compression({
       algorithm: "brotliCompress",
-      deleteOriginFile: false, // Keep the original assets
+      deleteOriginFile: false,
     }),
     ViteMinifyPlugin({}),
   ],
@@ -41,6 +41,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
+        text: resolve(__dirname, "text.html"),
       },
       external: [resolve(__dirname, "temp/**")],
       output: {

@@ -33,11 +33,6 @@
   visibility: visible;
 }
 
-#sidebar.closing {
-  transform: translateX(100%);
-  visibility: hidden;
-}
-
 #overlay.open {
   opacity: 1;
   pointer-events: auto;

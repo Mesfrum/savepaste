@@ -82,8 +82,11 @@ const toggleSidebar = () => {
   sidebarToggleIcon.classList.toggle("open");
 };
 
-toggleSidebarBtn.addEventListener("click", toggleSidebar);
-overlay.addEventListener("click", () => {
-  sidebar.classList.add("closing");
+const closeSidebar = () => {
+  sidebar.classList.remove("open");
   overlay.classList.remove("open");
-});
+  sidebarToggleIcon.classList.remove("open");
+};
+
+toggleSidebarBtn.addEventListener("click", toggleSidebar);
+overlay.addEventListener("click", closeSidebar);
