@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
@@ -7,9 +7,25 @@ import { ViteMinifyPlugin } from "vite-plugin-minify";
 import { resolve } from "path";
 import compression from "vite-plugin-compression";
 
+// Feature flag for the text dedup page. Off unless ENABLE_TEXT_PAGE=true.
+const enableTextPage = process.env.ENABLE_TEXT_PAGE === "true";
+
+// Strips <!-- feature:text --> ... <!-- /feature:text --> blocks when the flag is off.
+const textPageFlag = (): Plugin => ({
+  name: "text-page-flag",
+  transformIndexHtml: {
+    order: "pre",
+    handler: (html) =>
+      enableTextPage
+        ? html
+        : html.replace(/<!-- feature:text -->[\s\S]*?<!-- \/feature:text -->/g, ""),
+  },
+});
+
 export default defineConfig({
   base: "/",
   plugins: [
+    textPageFlag(),
     createHtmlPlugin({
       minify: true,
     }),
@@ -41,7 +57,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
-        text: resolve(__dirname, "text.html"),
+        ...(enableTextPage && { text: resolve(__dirname, "text.html") }),
       },
       external: [resolve(__dirname, "temp/**")],
       output: {
