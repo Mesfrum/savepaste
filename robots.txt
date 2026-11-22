@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block specific directories or files if needed
+Disallow: /private/
+Disallow: /temp/
+
+# Sitemap location
+Sitemap: https://savepaste.com/sitemap.xml
